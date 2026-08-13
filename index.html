@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Keren Saya</title>
+  
+  <!-- Font Modern dari Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* Background Foto HD + Gradient Overlay */
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(88, 28, 135, 0.75)),
+                  url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+      color: #ffffff;
+      padding: 20px;
+    }
+
+    /* KARTU TRANSPARAN (GLASSMORPHISM) */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08); /* Transparansi putih 8% */
+      backdrop-filter: blur(16px);           /* Efek buram/kaca */
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.18); /* Border tipis bercahaya */
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    /* TOMBOL MODERN */
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    }
+
+    /* Efek Saat Tombol Di-hover */
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glass-card">
+    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300" alt="Profile" class="profile-img">
+    <h1>Halo, Saya Astha!</h1>
+    <p>Selamat datang di website pribadi saya. Ini adalah contoh tampilan kartu transparan dengan efek kaca di GitHub Pages.</p>
+    <a href="#" class="btn">Lihat Portofolio</a>
+  </div>
+
+</body>
+</html>
