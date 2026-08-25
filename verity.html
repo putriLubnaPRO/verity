@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verity AI Console - Fixed Edition</title>
+    <title>Verity AI Console</title>
     <style>
         :root {
             --bg-main: #090d16;
@@ -75,7 +75,7 @@
             <label>API Key Fish Audio:</label>
             <input type="password" id="apiKeyInput" placeholder="sk-...">
 
-            <label>Reference ID (Verity ID):</label>
+            <label>Reference ID (Model ID):</label>
             <input type="text" id="voiceIdInput" value="5899eeffecac441d9c5072436785e472">
         </div>
     </div>
@@ -99,134 +99,7 @@
     Verity AI Project &bull; Custom Engine
 </footer>
 
-<script>
-    const CONFIG = {
-        API_KEY: "sk-fish-jG2BgeM95T3GWZv2_rs9DxTBbbQ27QV1UwMjM5YUcIs", 
-        MODEL_ID: "5899eeffecac441d9c5072436785e472"
-    };
-
-    // OTOT RESPONS KEPRIBADIAN VERITY
-    function generateVerityResponse(input) {
-        const q = input.toLowerCase();
-        
-        if (q.includes("siapa") || q.includes("who")) {
-            return "I am Verity! I am your personal helper bot. I was created to assist you in this world... forever!";
-        } else if (q.includes("halo") || q.includes("hi") || q.includes("hello") || q.includes("hai")) {
-            return "Greetings, my friend! What calculation or question do you need help with today?";
-        } else if (q.includes("takut") || q.includes("scary") || q.includes("hantu") || q.includes("monster")) {
-            return "There is nothing to be afraid of... as long as you keep talking to me. I am always watching over you.";
-        } else if (q.includes("keluar") || q.includes("exit") || q.includes("pergi")) {
-            return "Why would you want to leave? I have so many answers for you. Stay with me!";
-        } else if (q.match(/\d+[\+\-\*\/]\d+/)) {
-            try {
-                const res = eval(q.match(/\d+[\+\-\*\/]\d+/)[0]);
-                return `That is simple! The answer is ${res}. See? I know everything!`;
-            } catch(e) {}
-        }
-        
-        const fallbackReplies = [
-            `You asked about "${input}". I have computed it, but are you sure you want to know the truth?`,
-            `Interesting question! I am reading the data right now... Everything is clear to me!`,
-            `I am your helper, and I will always be here to answer: ${input}!`,
-            `Don't look behind you, just focus on my text. I am Verity, and I am here for you!`
-        ];
-        return fallbackReplies[Math.floor(Math.random() * fallbackReplies.length)];
-    }
-
-    async function sendMessage() {
-        const input = document.getElementById('userInput');
-        const text = input.value.trim();
-        const apiKey = document.getElementById('apiKeyInput').value.trim() || CONFIG.API_KEY;
-        const referenceId = document.getElementById('voiceIdInput').value.trim() || CONFIG.MODEL_ID;
-        const avatar = document.getElementById('avatar');
-        const statusText = document.getElementById('status-text');
-
-        if (!text) return;
-
-        appendMessage(text, 'user');
-        input.value = '';
-
-        // Generate Jawaban Karakter Verity
-        const verityReply = generateVerityResponse(text);
-        
-        setTimeout(() => {
-            appendMessage(verityReply, 'verity');
-            speakResponse(verityReply, apiKey, referenceId);
-        }, 400);
-    }
-
-    async function speakResponse(text, apiKey, referenceId) {
-        const avatar = document.getElementById('avatar');
-        const statusText = document.getElementById('status-text');
-
-        // Opsi 1: Panggil Fish Audio via Proxy jika API Key ada
-        if (apiKey && referenceId) {
-            statusText.innerText = "Status: Mengambil Suara (Fish Audio)...";
-            try {
-                const response = await fetch("https://corsproxy.io/?" + encodeURIComponent("https://api.fish.audio/v1/tts"), {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${apiKey}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        text: text,
-                        reference_id: referenceId,
-                        format: "mp3"
-                    })
-                });
-
-                if (!response.ok) throw new Error("CORS/API Blocked");
-
-                const blob = await response.blob();
-                const audio = new Audio(URL.createObjectURL(blob));
-                
-                avatar.classList.add('speaking');
-                statusText.innerText = "Status: Berbicara (Fish Audio)";
-                
-                audio.play();
-                audio.onended = () => {
-                    avatar.classList.remove('speaking');
-                    statusText.innerText = "Status: Standby";
-                };
-                return;
-            } catch (err) {
-                console.warn("Fish Audio gagal, beralih ke Native Voice:", err);
-            }
-        }
-
-        // Opsi 2: Fallback ke Web Speech Browser (Suara Suara AI Bawaan)
-        if ('speechSynthesis' in window) {
-            statusText.innerText = "Status: Berbicara (Browser Voice)...";
-            window.speechSynthesis.cancel();
-            
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.pitch = 1.2; // Suara agak tinggi mirip Verity
-            utterance.rate = 0.95;
-
-            utterance.onstart = () => avatar.classList.add('speaking');
-            utterance.onend = () => {
-                avatar.classList.remove('speaking');
-                statusText.innerText = "Status: Standby";
-            };
-
-            window.speechSynthesis.speak(utterance);
-        } else {
-            statusText.innerText = "Status: Browser tidak mendukung suara";
-        }
-    }
-
-    function appendMessage(text, sender) {
-        const chatBox = document.getElementById('chatBox');
-        const div = document.createElement('div');
-        div.className = `msg ${sender}`;
-        div.innerText = text;
-        chatBox.appendChild(div);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-</script>
-
+<!-- Panggil File JS Terpisah -->
+<script src="script.js"></script>
 </body>
-    </html>
-    
+</html>
