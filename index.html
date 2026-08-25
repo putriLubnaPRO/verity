@@ -1,310 +1,254 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Background Remover</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verity AI & Minecraft Entity - Wiki, Lore, Documentation & ElevenLabs Integration</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Pusat dokumentasi dan wiki resmi Verity AI & Entitas Verity Minecraft. Pelajari asal-usul karakter smiley kuning, sejarah lore, arsitektur suara ElevenLabs, dan cara integrasinya.">
+    <meta name="keywords" content="Verity, Verity Minecraft, Verity AI, ElevenLabs Verity, Minecraft Smiley Face, AI Voice Entity, Verity Wiki, Verity Guide">
+    <meta name="author" content="Verity Hub Project">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://domain-anda.com/index.html">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
+    <!-- Open Graph / Facebook / Discord SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://domain-anda.com/">
+    <meta property="og:title" content="Verity AI & Minecraft Entity - Wiki & Documentation Hub">
+    <meta property="og:description" content="Pusat dokumentasi resmi Verity AI & Minecraft Smiley Entity. Baca artikel lengkap lore, sejarah, dan teknologi ElevenLabs.">
+    <meta property="og:image" content="verity-avatar.jpg">
 
-    body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-    }
-
-    header {
-      text-align: center;
-      max-width: 600px;
-      margin-bottom: 40px;
-    }
-
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      background: linear-gradient(90deg, #38bdf8, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    header p {
-      color: #94a3b8;
-      font-size: 1rem;
-    }
-
-    .main-card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 30px;
-      width: 100%;
-      max-width: 800px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    }
-
-    /* AREA UPLOAD / DRAG & DROP */
-    .upload-box {
-      border: 2px dashed #475569;
-      border-radius: 16px;
-      padding: 50px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: rgba(15, 23, 42, 0.3);
-    }
-
-    .upload-box:hover {
-      border-color: #38bdf8;
-      background: rgba(56, 189, 248, 0.05);
-    }
-
-    .upload-btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 24px;
-      background: linear-gradient(90deg, #38bdf8, #6366f1);
-      color: white;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .upload-btn:hover {
-      transform: scale(1.05);
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
-    /* PREVIEW CONTAINER & POLA PAPAN CATUR TRANSPARAN */
-    .preview-container {
-      display: none;
-      margin-top: 25px;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 600px) {
-      .preview-container { grid-template-columns: 1fr; }
-    }
-
-    .img-card {
-      background: #1e293b;
-      border-radius: 12px;
-      padding: 15px;
-      text-align: center;
-    }
-
-    .img-card h3 {
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      color: #94a3b8;
-    }
-
-    /* Ciri khas transparan: Pola catur (Checkerboard) */
-    .checkerboard {
-      background-image: 
-        linear-gradient(45deg, #2a3749 25%, transparent 25%), 
-        linear-gradient(-45deg, #2a3749 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, #2a3749 75%), 
-        linear-gradient(-45deg, transparent 75%, #2a3749 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-      background-color: #1e293b;
-      border-radius: 8px;
-      min-height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .checkerboard img {
-      max-width: 100%;
-      max-height: 280px;
-      object-fit: contain;
-    }
-
-    /* STATUS SPINNER */
-    .loading-status {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
-      color: #38bdf8;
-      font-weight: 600;
-    }
-
-    .download-btn {
-      display: block;
-      width: 100%;
-      margin-top: 15px;
-      padding: 10px;
-      background: #22c55e;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 8px;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>Hapus Background Otomatis</h1>
-    <p>Unggah gambarmu dan biarkan AI menghapus latar belakang secara instan & 100% transparan.</p>
-  </header>
-
-  <div class="main-card">
-    <!-- Area Upload -->
-    <div class="upload-box" id="dropZone" onclick="document.getElementById('fileInput').click()">
-      <svg width="48" height="48" fill="none" stroke="#38bdf8" viewBox="0 0 24 24" style="margin-bottom:10px;">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-      </svg>
-      <p style="color: #e2e8f0; font-weight: 600;">Tarik & Lepas gambar di sini</p>
-      <p style="color: #64748b; font-size: 0.85rem; margin-top: 5px;">atau klik tombol di bawah</p>
-      <span class="upload-btn">Pilih Gambar</span>
-      <input type="file" id="fileInput" accept="image/*">
-    </div>
-
-    <!-- Teks Status Loading -->
-    <div class="loading-status" id="loading">
-      ⚡ AI sedang memproses & menghapus background... Mohon tunggu sebentar.
-    </div>
-
-    <!-- Area Hasil Preview -->
-    <div class="preview-container" id="previewContainer">
-      <div class="img-card">
-        <h3>Gambar Asli</h3>
-        <div style="border-radius:8px; overflow:hidden;">
-          <img id="originalImg" src="" alt="Original">
-        </div>
-      </div>
-      <div class="img-card">
-        <h3>Hasil (Transparan)</h3>
-        <!-- Elemen dengan background catur -->
-        <div class="checkerboard">
-          <img id="resultImg" src="" alt="Result">
-        </div>
-        <a id="downloadBtn" href="#" download="background-removed.png" class="download-btn">Unduh PNG HD</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- SCRIPT AI BACKEND (CLIENT-SIDE) -->
-  <script type="module">
-    import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/+esm';
-
-    const fileInput = document.getElementById('fileInput');
-    const loading = document.getElementById('loading');
-    const previewContainer = document.getElementById('previewContainer');
-    const originalImg = document.getElementById('originalImg');
-    const resultImg = document.getElementById('resultImg');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    fileInput.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      // 1. Tampilkan gambar asli
-      originalImg.src = URL.createObjectURL(file);
-      loading.style.display = 'block';
-      previewContainer.style.display = 'none';
-
-      try {
-        // 2. Jalankan pustaka AI untuk hapus background
-        const blobResult = await removeBackground(file);
-        
-        // 3. Tampilkan hasil gambar transparan
-        const resultUrl = URL.createObjectURL(blobResult);
-        resultImg.src = resultUrl;
-        downloadBtn.href = resultUrl;
-
-        loading.style.display = 'none';
-        previewContainer.style.display = 'grid';
-      } catch (error) {
-        console.error(error);
-        alert('Gagal memproses gambar. Coba gunakan gambar berukuran lebih kecil.');
-        loading.style.display = 'none';
+    <!-- Schema.org Structured Data untuk Google Search Console -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Dokumentasi Lengkap Verity AI dan Entitas Minecraft",
+      "description": "Panduan dan artikel komprehensif mengenai entitas Verity, lore Minecraft, dan sintesis suara ElevenLabs.",
+      "image": "verity-avatar.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "Verity Hub Team"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Verity AI Network"
       }
-    });
-  </script>
-</body>
-</html>
-      border-radius: 24px;
-      padding: 40px;
-      max-width: 450px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
+    </script>
 
-    .profile-img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      margin-bottom: 20px;
-      object-fit: cover;
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "Apa itu Verity dalam dunia Minecraft?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Verity adalah entitas berbentuk bola kuning smiley ikonik yang muncul di lanskap dunia Minecraft, dikenal sebagai simbol keramahan dan kecerdasan artifisial interaktif."
+        }
+      },{
+        "@type": "Question",
+        "name": "Bagaimana cara kerja Verity AI dengan ElevenLabs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Verity AI menggunakan API Text-to-Speech (TTS) dari ElevenLabs untuk mengubah teks tanggapan menjadi vokal alami secara real-time dengan latensi rendah."
+        }
+      }]
     }
+    </script>
 
-    h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
+    <style>
+        :root {
+            --bg-primary: #090d16;
+            --bg-card: #161f32;
+            --accent: #facc15;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: var(--bg-primary); color: var(--text-main); line-height: 1.7; }
+        
+        header { background: #030712; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); sticky: top; top: 0; z-index: 100; }
+        .logo-group { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover; }
+        .nav-btn { background: var(--accent); color: #000; padding: 0.6rem 1.4rem; font-weight: bold; border-radius: 8px; text-decoration: none; transition: 0.2s; }
+        .nav-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        
+        .container { max-width: 1150px; margin: 2rem auto; padding: 0 1.5rem; }
+        
+        .hero { text-align: center; padding: 3rem 1rem; background: radial-gradient(circle, rgba(250,204,21,0.08) 0%, rgba(9,13,22,1) 70%); border-radius: 16px; margin-bottom: 2.5rem; border: 1px solid var(--border); }
+        .hero h1 { font-size: 2.8rem; color: var(--accent); margin-bottom: 1rem; line-height: 1.2; }
+        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 800px; margin: 0 auto 1.5rem auto; }
+        
+        .lang-picker { display: flex; gap: 10px; justify-content: center; margin-bottom: 2.5rem; }
+        .lang-btn { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .lang-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
 
-    p {
-      color: #cbd5e1;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
 
-    /* TOMBOL MODERN */
-    .btn {
-      display: inline-block;
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(90deg, #6366f1, #a855f7);
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-    }
-
-    /* Efek Saat Tombol Di-hover */
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
-    }
-  </style>
+        .article-section { margin-bottom: 3rem; }
+        .article-section h2 { font-size: 1.8rem; color: var(--accent); margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        
+        .articles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.8rem; }
+        .card { background: var(--bg-card); border-radius: 12px; padding: 1.8rem; border: 1px solid var(--border); transition: transform 0.2s; }
+        .card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: #fff; }
+        .card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1rem; }
+        .card ul { margin-left: 1.2rem; color: var(--text-muted); font-size: 0.95rem; }
+        
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin-bottom: 1rem; }
+        .faq-item h4 { color: var(--accent); font-size: 1.1rem; margin-bottom: 0.5rem; }
+        
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); margin-top: 4rem; font-size: 0.9rem; }
+    </style>
 </head>
 <body>
 
-  <div class="glass-card">
-    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300" alt="Profile" class="profile-img">
-    <h1>Halo, Saya Astha!</h1>
-    <p>Selamat datang di website pribadi saya. Ini adalah contoh tampilan kartu transparan dengan efek kaca di GitHub Pages.</p>
-    <a href="#" class="btn">Lihat Portofolio</a>
-  </div>
+<header>
+    <div class="logo-group">
+        <img src="verity-avatar.jpg" alt="Verity Minecraft Entity Logo" class="logo-img">
+        <span style="font-weight: bold; font-size: 1.2rem;">Verity Knowledge Hub</span>
+    </div>
+    <a href="verity.html" class="nav-btn">Mulai Chat Verity AI &rarr;</a>
+</header>
 
+<main class="container">
+    <section class="hero">
+        <h1>Verity AI & Entitas Minecraft Hub</h1>
+        <p>Pusat Informasi Resmi, Dokumentasi API ElevenLabs, Lore Karakter Smiley Kuning, dan Wiki Integrasi Verity AI.</p>
+    </section>
+
+    <div class="lang-picker">
+        <button class="lang-btn active" onclick="switchLang('id')">Bahasa Indonesia</button>
+        <button class="lang-btn" onclick="switchLang('en')">English</button>
+        <button class="lang-btn" onclick="switchLang('es')">Español</button>
+    </div>
+
+    <!-- CONTENT BAHASA INDONESIA -->
+    <div id="content-id" class="lang-content active">
+        <section class="article-section">
+            <h2>Artikel & Dokumentasi Utama Verity</h2>
+            <div class="articles-grid">
+                <article class="card">
+                    <h3>1. Asal-Usul Entitas Verity di Minecraft</h3>
+                    <p>Entitas <strong>Verity Minecraft</strong> muncul sebagai ikon bola kuning berwajah senyum (smiley face) di atas padang rumput hijau ikonik Minecraft. Karakter ini mewakili filosofi kecerdasan buatan terdesentralisasi yang ramah dan mudah diakses oleh komunitas gamer maupun pengembang web.</p>
+                    <ul>
+                        <li>Visual: 3D Yellow Smiley Ball</li>
+                        <li>Latar Belakang: World Sandbox Minecraft</li>
+                        <li>Fungsi: Entitas Pemandu & Asisten Interaktif</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h3>2. Integrasi Suara Generasi Baru: ElevenLabs AI</h3>
+                    <p>Teknologi di balik suara Verity memanfaatkan engine <strong>ElevenLabs Text-to-Speech (TTS)</strong>. Dengan modulasi vokal <em>Neural Audio</em>, Verity mampu memproses kalimat dan menghasilkan percakapan berbasis emosi alami secara <em>real-time</em>.</p>
+                    <ul>
+                        <li>Model Suara: Eleven Multilingual v2</li>
+                        <li>Latensi Rendah & Respon Cepat</li>
+                        <li>Dukungan Bahasa Indonesia & Multibahasa</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h3>3. Panduan Penggunaan Verity Web Console</h3>
+                    <p>Melalui antarmuka <code>verity.html</code>, pengguna dapat menghubungkan API Key ElevenLabs pribadi untuk mengaktifkan pemrosesan suara penuh. Konsol ini dilengkapi efek visualizer animasi yang merespons frekuensi vokal Verity saat berbicara.</p>
+                    <ul>
+                        <li>Input Kunci API ElevenLabs mandiri</li>
+                        <li>Fitur Pilihan ID Suara (Voice ID) Custom</li>
+                        <li>Tampilan Obrolan UI Modern Responsif</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h3>4. Arsitektur Kode dan Pengorganisasian File</h3>
+                    <p>Aplikasi ini dibangun menggunakan arsitektur web modern tanpa ketergantungan framework berat. Pemisahan antara <code>index.html</code> (Lobby/SEO Hub) dan <code>verity.html</code> (Console AI) memastikan indeks Google tetap cepat dan efisien.</p>
+                </article>
+
+                <article class="card">
+                    <h3>5. Masa Depan Pengembangan Verity AI</h3>
+                    <p>Pengembangan selanjutnya akan mencakup integrasi model bahasa besar (LLM) seperti Gemini API dan WebSockets untuk obrolan suara langsung dua arah tanpa penundaan transmisi data.</p>
+                </article>
+
+                <article class="card">
+                    <h3>6. Komunitas & Kontribusi Modding Minecraft</h3>
+                    <p>Komunitas dapat mengintegrasikan aset visual Verity ke dalam pak tekstur (texture pack) atau mod kustom Minecraft untuk menghadirkan entitas ini di dalam server permainan lokal maupun multiplayer.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="article-section">
+            <h2>Pertanyaan Sering Diajukan (FAQ Verity)</h2>
+            <div class="faq-item">
+                <h4>Apa itu Verity Minecraft?</h4>
+                <p>Verity Minecraft adalah entitas AI berbentuk bola kuning smiley yang memadukan dunia estetika Minecraft dengan teknologi voice AI modern.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Apakah saya memerlukan API Key ElevenLabs untuk menggunakan Verity?</h4>
+                <p>Tidak wajib. Tanpa API Key, Verity tetap beroperasi dalam mode teks. Masukkan API Key jika ingin mendengarkan respons vokal langsung dari Verity.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Bagaimana cara agar Verity muncul di halaman utama Google?</h4>
+                <p>Situs ini menggunakan tag struktur SEO HTML5 lengkap dan JSON-LD Schema agar Google Search Console dapat membaca dan mengindeks seluruh konten kata kunci Verity secara cepat.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTENT ENGLISH -->
+    <div id="content-en" class="lang-content">
+        <section class="article-section">
+            <h2>Verity Articles & Technical Documentation</h2>
+            <div class="articles-grid">
+                <article class="card">
+                    <h3>1. The Origin of Verity Minecraft Entity</h3>
+                    <p>The <strong>Verity Minecraft entity</strong> originated as a yellow smiley sphere hovering in iconic Minecraft terrain. It symbolizes friendly, accessible artificial intelligence built for sandbox environments.</p>
+                </article>
+                <article class="card">
+                    <h3>2. ElevenLabs Voice Architecture</h3>
+                    <p>Verity leverages <strong>ElevenLabs Neural Speech Synthesis</strong>, delivering high-fidelity vocal responses with realistic intonations and low latency processing.</p>
+                </article>
+                <article class="card">
+                    <h3>3. Web Console Integration</h3>
+                    <p>By pairing <code>verity.html</code> with your personal ElevenLabs API Key, users unlock voice synthesis accompanied by an active avatar speaker visualizer.</p>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTENT ESPAÑOL -->
+    <div id="content-es" class="lang-content">
+        <section class="article-section">
+            <h2>Artículos y Documentación de Verity</h2>
+            <div class="articles-grid">
+                <article class="card">
+                    <h3>1. Origen de la Entidad Verity en Minecraft</h3>
+                    <p>La entidad <strong>Verity Minecraft</strong> representa una esfera sonriente en el mundo de píxeles, diseñada para la interacción entre inteligencia artificial y entornos virtuales.</p>
+                </article>
+                <article class="card">
+                    <h3>2. Tecnología de Voz ElevenLabs</h3>
+                    <p>Verity implementa la API de ElevenLabs para generar síntesis de voz natural y fluida con baja latencia para los usuarios.</p>
+                </article>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Verity AI Project Hub. Optimized for Google Search Indexing & ElevenLabs Voice Engine.</p>
+</footer>
+
+<script>
+    function switchLang(lang) {
+        document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(`content-${lang}`).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
 </body>
-</html>
+  </html>
+      
